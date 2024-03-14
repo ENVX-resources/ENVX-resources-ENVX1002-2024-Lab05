@@ -1,1 +1,1 @@
-Sitemap: https://ENVX-resources.github.io/ENVX2001-Lab-template/sitemap.xml
+Sitemap: https://ENVX-resources.github.io/ENVX-resources-ENVX1002-2024-Lab05/sitemap.xml
