@@ -170,7 +170,7 @@ background: white;
   </ul></li>
   <li><a href="#exercise-1-1-sample-t-test-milk-yield---walk-through" id="toc-exercise-1-1-sample-t-test-milk-yield---walk-through" class="nav-link" data-scroll-target="#exercise-1-1-sample-t-test-milk-yield---walk-through">Exercise 1: 1-sample t-test Milk Yield - Walk through</a>
   <ul class="collapse">
-  <li><a href="#normally-you-choose-0.05-as-a-level-of-significance" id="toc-normally-you-choose-0.05-as-a-level-of-significance" class="nav-link" data-scroll-target="#normally-you-choose-0.05-as-a-level-of-significance">1. Normally you choose <em>0.05 as a level of significance</em>:</a></li>
+  <li><a href="#normally-you-choose-0.05-as-a-level-of-significance" id="toc-normally-you-choose-0.05-as-a-level-of-significance" class="nav-link" data-scroll-target="#normally-you-choose-0.05-as-a-level-of-significance">1. Normally you choose <em>0.05</em> as a level of significance:</a></li>
   <li><a href="#write-null-and-alternative-hypotheses" id="toc-write-null-and-alternative-hypotheses" class="nav-link" data-scroll-target="#write-null-and-alternative-hypotheses">2. Write null and alternative hypotheses:</a></li>
   <li><a href="#check-assumptions-normality" id="toc-check-assumptions-normality" class="nav-link" data-scroll-target="#check-assumptions-normality">3. Check assumptions (normality):</a>
   <ul class="collapse">
@@ -230,10 +230,10 @@ Learning outcomes
 <section id="before-you-begin" class="level1">
 <h1>Before you begin</h1>
 <p>You can download the data</p>
-<ul>
+<ol type="1">
 <li>From module 5 in Canvas</li>
-<li><a href="data\ENVX1002_Data5.xlsx">ENVX1002_Data5.xlsx</a> if you are viewing the html file from Github <a href="https://Github.com/envx-resources" class="uri">https://Github.com/envx-resources</a></li>
-</ul>
+<li><a href="data/ENVX1002_Data5.xlsx">ENVX1002_Data5.xlsx</a> if you are viewing the html file from Github <a href="https://Github.com/envx-resources" class="uri">https://Github.com/envx-resources</a></li>
+</ol>
 <section id="create-a-new-project" class="level2">
 <h2 class="anchored" data-anchor-id="create-a-new-project">Create a new project</h2>
 <p>Reminder (skip to step 2 if you are going to use the directory you created in your tutorial)</p>
@@ -249,13 +249,27 @@ Learning outcomes
 </section>
 <section id="installing-packages" class="level2">
 <h2 class="anchored" data-anchor-id="installing-packages">Installing packages</h2>
-<p>All of the functions and datasets in R are organised into packages. There are the standard (or base) packages which are part of the source code - the functions and datasets that make up these packages are automatically available when R is opened. There are also many contributed packages. These have been written by many different authors, often to implement methods that are not available in the base packages. If you are unable to find a method in the base packages, you might be able to find it in a contributed package. The Comprehensive R Archive Network (CRAN) site <a href="http://cran.r-project.org/">(http://cran.r-project.org/)</a> is where many contributed packages can be downloaded. Click on packages on the left hand side. We will download two packages in this class using the <code>install.packages</code> command and we then load the package into R using the library command.</p>
+<p><strong>Remember</strong> All of the functions and data sets in R are organised into packages. There are the standard (or base) packages which are part of the source code - the functions and data sets that make up these packages are automatically available when R is opened. There are also many contributed packages. These have been written by many different authors, often to implement methods that are not available in the base packages. If you are unable to find a method in the base packages, you might be able to find it in a contributed package. The Comprehensive R Archive Network (CRAN) site <a href="http://cran.r-project.org/">(http://cran.r-project.org/)</a> is where many contributed packages can be downloaded. Click on packages on the left hand side. We will download two packages in this class using the <code>install.packages</code> command and we then load the package into R using the library command.</p>
 <p>Alternatively, in RStudio click on the <em>Packages tab &gt; Install &gt; type in package name &gt; click install</em>.</p>
 </section>
 </section>
 <section id="exercise-1-1-sample-t-test-milk-yield---walk-through" class="level1">
 <h1>Exercise 1: 1-sample t-test Milk Yield - Walk through</h1>
-<p>This exercise will walk you through how to test a hypothesis, check assumptions and eventually draw a conclusion on your initial hypothesis. 100 cows have their milk yield measured. Suppose we wish to test whether these milk yields (units unknown) differ significantly from the economic threshold of 11 units. (The units may possibly be litres of milk produced on a particular day). The data is in the ‘Milk.csv’ file. You will follow the steps as outlined in the lectures:</p>
+<p>This exercise will walk you through how to test a hypothesis, check assumptions and eventually draw a conclusion on your initial hypothesis. 100 cows have their milk yield measured. Suppose we wish to test whether these milk yields (units unknown) differ significantly from the economic threshold of 11 units. (The units may possibly be litres of milk produced on a particular day).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Fact
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The average Australian drinks about 100 litres of milk per year. The average cow produces between 12 and 30 litres of milk per day.</p>
+</div>
+</div>
+<p>The data is in the <code>Milk</code> sheet found in the <code>ENVX1002_Data5.xlsx</code> file. You will follow the steps as outlined in the lectures:</p>
 <ol type="1">
 <li>Choose level of significance (α)</li>
 <li>Write null and alternate hypotheses</li>
@@ -268,7 +282,7 @@ Learning outcomes
 <p>Remember you can remember the above using <strong>HATPC</strong></p>
 <p>Lets go:</p>
 <section id="normally-you-choose-0.05-as-a-level-of-significance" class="level2">
-<h2 class="anchored" data-anchor-id="normally-you-choose-0.05-as-a-level-of-significance">1. Normally you choose <em>0.05 as a level of significance</em>:</h2>
+<h2 class="anchored" data-anchor-id="normally-you-choose-0.05-as-a-level-of-significance">1. Normally you choose <em>0.05</em> as a level of significance:</h2>
 <p>This value is generally accepted in the scientific community and is also linked to type 2 errors where choosing a lower significance increases the likelihood of a type 2 error occurring.</p>
 </section>
 <section id="write-null-and-alternative-hypotheses" class="level2">
@@ -362,6 +376,19 @@ H<sub>1</sub>: &lt; Type your answer here &gt;</p>
 <p>Data file: Stinging.csv</p>
 <p>A forest ecologist, studying regeneration of rainforest communities in gaps caused by large trees falling during storms, read that stinging tree, <strong>Dendrocnide excelsa</strong>, seedlings will grow 1.5m/year in direct sunlight such as gaps. In the gaps in her study plot, she identified 9 specimens of this species and measure them in 1998 and again 1 year later.</p>
 <p>Does her data support the published contention that seedlings of this species will average 1.5m of growth per year in direct sunlight? Also, calculate a 95% CI for the true mean. Analyse the data in R. Due to the small sample size we have to assume the data is normal.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Fact
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It was found that researchers wearing welding gloves and a full body suit were still stung by the tree. The sting is extremely painful and can last for months. The pain is caused by a neurotoxin that is injected into the skin. The tree is found in the rainforests of north-eastern Australia.</p>
+</div>
+</div>
 <p>Work through the steps below individually or in pairs. Add more code chunks if required (click insert -&gt; R on above toolbar)</p>
 <blockquote class="blockquote">
 <ol type="1">
