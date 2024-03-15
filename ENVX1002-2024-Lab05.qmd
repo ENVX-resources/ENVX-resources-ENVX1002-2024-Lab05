@@ -183,7 +183,7 @@ ggplot(milk, aes(x = Yield)) +
   geom_histogram(binwidth = 1, fill = "lightblue", color = "black") +
   labs(title = "Histogram of Milk Yield", x = "Yield", y = "Frequency")
 
-ggplot(milk, aes(y = Yield)) +
+ggplot(milk, aes(x = Yield)) +
   geom_boxplot(fill = "lightblue", color = "black") 
 
 ```
@@ -348,10 +348,24 @@ It was found that researchers wearing welding gloves and a full body suit were s
 
 Work through the steps below individually or in pairs. Add more code chunks if required (click insert -> R on above toolbar)  
 
-
+----
 
 >1. Choose level of significance (α)  
 > Answer:  
+
+----
+
+::: {.content-visible when-profile="solution"}
+### Solution {style="color:green;"}
+
+----
+
+>1. Choose level of significance (α)  
+> Answer:  0.05 is generally accepted in the scientific community.
+
+----
+
+:::
 
 ----
 
@@ -361,9 +375,23 @@ Work through the steps below individually or in pairs. Add more code chunks if r
 
 ----
 
+::: {.content-visible when-profile="solution"}
+### Solution {style="color:green;"}
+
+----
+
+>2. Write null and alternate hypotheses  
+> H~0~: $\mu_{growth}$ = 1.5m/year     
+> H~1~: $\mu_{growth}$ $\neq$ 1.5m/year 
+
+----
+
+:::
+
 >3. Check assumptions (normal)  
 
 Read in the data:
+
 ```{r}
 library(readxl)
 sting <- read_excel("data/ENVX1002_Data5.xlsx", sheet = "Stinging")
@@ -509,3 +537,9 @@ t.test(sting$Stinging, mu = 1.5)
 ### Attribution
 
 This lab was developed using resources that are available under a [Creative Commons Attribution 4.0 International license](http://creativecommons.org/licenses/by/4.0/), made available on the [SOLES Open Educational Resources repository](https://github.com/usyd-soles-edu/).
+
+```{r, echo=FALSE, eval=FALSE}
+#renv::install("jhelvy/renderthis")
+#renv::install("chromote")
+renderthis::to_pdf("_solution/ENVX1002-2024-Lab05.html")
+```
