@@ -1,0 +1,72 @@
+[
+  {
+    "objectID": "ENVX1002-2024-Lab05.html",
+    "href": "ENVX1002-2024-Lab05.html",
+    "title": "Lab 05",
+    "section": "",
+    "text": "Learning outcomes\n\n\n\n\nLearn to use R to calculate a 1-sample t-test\nApply the steps for hypothesis testing from lectures\nLearn how to interpret statistical output"
+  },
+  {
+    "objectID": "ENVX1002-2024-Lab05.html#welcome",
+    "href": "ENVX1002-2024-Lab05.html#welcome",
+    "title": "Lab 05",
+    "section": "",
+    "text": "Learning outcomes\n\n\n\n\nLearn to use R to calculate a 1-sample t-test\nApply the steps for hypothesis testing from lectures\nLearn how to interpret statistical output"
+  },
+  {
+    "objectID": "ENVX1002-2024-Lab05.html#create-a-new-project",
+    "href": "ENVX1002-2024-Lab05.html#create-a-new-project",
+    "title": "Lab 05",
+    "section": "Create a new project",
+    "text": "Create a new project\nReminder (skip to step 2 if you are going to use the directory you created in your tutorial)\nStep 1: Create a new project file for the practical put in your ENVX1002 Folder. File &gt; New Project &gt; New Directory &gt; New Project.\nStep 2: Download the data files from canvas or using above link and copy into your project directory.\nI recommend that you make a data folder in your project directory to keep things tidy! If you make a data folder in your project directory you will need to indicate this path before the file name.\nStep 3: Open a new Quarto file.\ni.e. File &gt; New File &gt; Quarto Document and save it immediately i.e. File &gt; Save."
+  },
+  {
+    "objectID": "ENVX1002-2024-Lab05.html#problems-with-your-personal-computer-and-r",
+    "href": "ENVX1002-2024-Lab05.html#problems-with-your-personal-computer-and-r",
+    "title": "Lab 05",
+    "section": "Problems with your personal computer and R",
+    "text": "Problems with your personal computer and R\nNOTE: If you are having problems with R on your personal computer that cannot easily be solved by a demonstrator, please use the Lab PCs."
+  },
+  {
+    "objectID": "ENVX1002-2024-Lab05.html#installing-packages",
+    "href": "ENVX1002-2024-Lab05.html#installing-packages",
+    "title": "Lab 05",
+    "section": "Installing packages",
+    "text": "Installing packages\nAll of the functions and datasets in R are organised into packages. There are the standard (or base) packages which are part of the source code - the functions and datasets that make up these packages are automatically available when R is opened. There are also many contributed packages. These have been written by many different authors, often to implement methods that are not available in the base packages. If you are unable to find a method in the base packages, you might be able to find it in a contributed package. The Comprehensive R Archive Network (CRAN) site (http://cran.r-project.org/) is where many contributed packages can be downloaded. Click on packages on the left hand side. We will download two packages in this class using the install.packages command and we then load the package into R using the library command.\nAlternatively, in RStudio click on the Packages tab &gt; Install &gt; type in package name &gt; click install."
+  },
+  {
+    "objectID": "ENVX1002-2024-Lab05.html#normally-you-choose-0.05-as-a-level-of-significance",
+    "href": "ENVX1002-2024-Lab05.html#normally-you-choose-0.05-as-a-level-of-significance",
+    "title": "Lab 05",
+    "section": "1. Normally you choose 0.05 as a level of significance:",
+    "text": "1. Normally you choose 0.05 as a level of significance:\nThis value is generally accepted in the scientific community and is also linked to type 2 errors where choosing a lower significance increases the likelihood of a type 2 error occurring."
+  },
+  {
+    "objectID": "ENVX1002-2024-Lab05.html#write-null-and-alternative-hypotheses",
+    "href": "ENVX1002-2024-Lab05.html#write-null-and-alternative-hypotheses",
+    "title": "Lab 05",
+    "section": "2. Write null and alternative hypotheses:",
+    "text": "2. Write null and alternative hypotheses:\n\n\nQuestion: Write down the null hypothesis and alternative hypotheses:\nH0: &lt; Type your answer here &gt;\nH1: &lt; Type your answer here &gt;\n\n\n\nSolution\n\n\nQuestion: Write down the null hypothesis and alternative hypotheses:\nH0: \\mu_{yield} = 11 units\nH1: \\mu_{yield} \\neq 11 units"
+  },
+  {
+    "objectID": "ENVX1002-2024-Lab05.html#check-assumptions-normality",
+    "href": "ENVX1002-2024-Lab05.html#check-assumptions-normality",
+    "title": "Lab 05",
+    "section": "3. Check assumptions (normality):",
+    "text": "3. Check assumptions (normality):\n\na. load data:\nMake sure you set your working directory first\n\n# Type your R code here\n\n\n\nSolution\n\nlibrary(readxl)\nmilk &lt;- read_excel(\"data/ENVX1002_Data5.xlsx\", sheet = \"Milk\")\n\nIt is always good practice to look at the data first to make sure you have the correct data, it loaded in correctly and know what the names of the columns are. This can be done by typing the name of the data Milk or for large datasets, use str() to show the first 6 lines:\n\n# Type your R code here\n\n\n\nSolution\n\nstr(milk)\n\ntibble [100 × 1] (S3: tbl_df/tbl/data.frame)\n $ Yield: num [1:100] 18.5 15.9 13.1 15.1 5.7 9.4 15.3 17.6 18.4 22 ...\n\n\n\n\nb. Tests for normality:\nqqplots:\n\n# Type your R code here\n\n\n\nSolution\n\nqqnorm(milk$Yield)\nqqline(milk$Yield)\n\n\n\n\nHistogram and boxplots:\n\n# Type your R code here\n\n\n\nSolution\n\nhist(milk$Yield)\n\n\n\nboxplot(milk$Yield)\n\n\n\n\n\n\nQuestion: Do the plots indicate the data are normally distributed?\nAnswer: &lt; Type your answer here &gt;\n\n\n\n\nSolution\n\n\nQuestion: Do the plots indicate the data are normally distributed?\nAnswer: yes - think about why?\n\n\nShapiro-Wilk test of normality:\n\n# Type your R code here\n\n\n\nSolution\n\nshapiro.test(milk$Yield)\n\n\n    Shapiro-Wilk normality test\n\ndata:  milk$Yield\nW = 0.98967, p-value = 0.6379\n\n\n\n\nQuestion: Does the Shapiro-Wilk test indicate the data are normally distributed? Explain your answer.\nAnswer: &lt; Type your answer here &gt;\n\n\n\n\nSolution\n\n\nQuestion: Does the Shapiro-Wilk test indicate the data are normally distributed? Explain your answer.\nAnswer: yes. p-value &gt; 0.05."
+  },
+  {
+    "objectID": "ENVX1002-2024-Lab05.html#calculate-the-test-statistic",
+    "href": "ENVX1002-2024-Lab05.html#calculate-the-test-statistic",
+    "title": "Lab 05",
+    "section": "4. Calculate the test statistic",
+    "text": "4. Calculate the test statistic\nIn R we achieve this via the command t.test(milk$Yield, mu = …) The R output first gives us the calculated t value, the degrees of freedom, and then the p-value, it then provides the 95% CI and the mean of the sample. Were mu = … is written enter in the hypothesised mean.\n\n# write your R code here\n\n\nSolution\n\nt.test(milk$Yield, mu = 11)\n\n\n    One Sample t-test\n\ndata:  milk$Yield\nt = 4.9291, df = 99, p-value = 3.323e-06\nalternative hypothesis: true mean is not equal to 11\n95 percent confidence interval:\n 12.53485 14.60315\nsample estimates:\nmean of x \n   13.569 \n\n\n\n\n5. Obtain P-value or critical value\n\n\nQuestion: Does the hypothesised economic threshold lie within the confidence intervals?\nAnswer: &lt; Type your answer here &gt;\n\n\n\n\nSolution\n\n\nQuestion: Does the hypothesised economic threshold lie within the confidence intervals?\nAnswer: No\n\n\n\n\n6. Make statistical conclusion\n\n\nQuestion:: Based on the P-value, do we accept or reject the null hypothesis?\nAnswer: &lt; Type your answer here &gt;\n\n\n\n\nSolution\n\n\nQuestion:: Based on the P-value, do we accept or reject the null hypothesis?\nAnswer: Reject the null hypothesis\n\n\n\n\n7. Write a scientific (biological) conclusion\n\n\nQuestion:: Now write a scientific (biological) conclusion based on the outcome in 6.\nAnswer: &lt; Type your answer here &gt;\n\n\n\n\nSolution\n\n\nQuestion:: Now write a scientific (biological) conclusion based on the outcome in 6.\nAnswer: The milk yields differ significantly from the economic threshold of 11 units. In fact, the cows tested yield an average of 13.6 units (95% CI: 12.5, 14.6), which is significantly higher than the economic threshold of 11 units."
+  },
+  {
+    "objectID": "ENVX1002-2024-Lab05.html#thanks",
+    "href": "ENVX1002-2024-Lab05.html#thanks",
+    "title": "Lab 05",
+    "section": "Thanks!",
+    "text": "Thanks!\n\nAttribution\nThis lab was developed using resources that are available under a Creative Commons Attribution 4.0 International license, made available on the SOLES Open Educational Resources repository."
+  }
+]
