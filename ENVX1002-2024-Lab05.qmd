@@ -20,8 +20,8 @@ date-format: "[Semester 1,] YYYY"
 
 You can download the data
 
-- From module 5 in Canvas
-- [ENVX1002_Data5.xlsx](data\ENVX1002_Data5.xlsx) if you are viewing the html file from Github <https://Github.com/envx-resources>
+1) From module 5 in Canvas
+2) [ENVX1002_Data5.xlsx](data/ENVX1002_Data5.xlsx) if you are viewing the html file from Github <https://Github.com/envx-resources>
 
 
 ## Create a new project  
@@ -44,14 +44,21 @@ NOTE: If you are having problems with R on your personal computer that cannot ea
 
 ## Installing packages
 
-All of the functions and datasets in R are organised into packages. There are the standard (or base) packages which are part of the source code - the functions and datasets that make up these packages are automatically available when R is opened. There are also many contributed packages. These have been written by many different authors, often to implement methods that are not available in the base packages. If you are unable to find a method in the base packages, you might be able to find it in a contributed package. The Comprehensive R Archive Network (CRAN) site [(http://cran.r-project.org/)](http://cran.r-project.org/) is where many contributed packages can be downloaded. Click on packages on the left hand side. We will download two packages in this class using the ```install.packages``` command and we then load the package into R using the library command. 
+**Remember** All of the functions and data sets in R are organised into packages. There are the standard (or base) packages which are part of the source code - the functions and data sets that make up these packages are automatically available when R is opened. There are also many contributed packages. These have been written by many different authors, often to implement methods that are not available in the base packages. If you are unable to find a method in the base packages, you might be able to find it in a contributed package. The Comprehensive R Archive Network (CRAN) site [(http://cran.r-project.org/)](http://cran.r-project.org/) is where many contributed packages can be downloaded. Click on packages on the left hand side. We will download two packages in this class using the ```install.packages``` command and we then load the package into R using the library command. 
 
 Alternatively, in RStudio click on the *Packages tab > Install > type in package name > click install*.
 
 
 # Exercise 1: 1-sample t-test Milk Yield - Walk through
 
-This exercise will walk you through how to test a hypothesis, check assumptions and eventually draw a conclusion on your initial hypothesis. 100 cows have their milk yield measured. Suppose we wish to test whether these milk yields (units unknown) differ significantly from the economic threshold of 11 units. (The units may possibly be litres of milk produced on a particular day). The data is in the ‘Milk.csv' file. You will follow the steps as outlined in the lectures:  
+This exercise will walk you through how to test a hypothesis, check assumptions and eventually draw a conclusion on your initial hypothesis. 100 cows have their milk yield measured. Suppose we wish to test whether these milk yields (units unknown) differ significantly from the economic threshold of 11 units. (The units may possibly be litres of milk produced on a particular day). 
+
+:::{.callout-tip}
+## Fact
+The average Australian drinks about 100 litres of milk per year. The average cow produces between 12 and 30 litres of milk per day. 
+:::
+
+The data is in the `Milk` sheet found in the `ENVX1002_Data5.xlsx` file. You will follow the steps as outlined in the lectures:  
 
 1. Choose level of significance (α)
 2. Write null and alternate hypotheses
@@ -65,30 +72,30 @@ Remember you can remember the above using **HATPC**
 
 Lets go:  
   
-## 1. Normally you choose *0.05 as a level of significance*: 
+## 1. Normally you choose *0.05* as a level of significance: 
 
 This value is generally accepted in the scientific community and is also linked to type 2 errors where choosing a lower significance increases the likelihood of a type 2 error occurring.  
 
 ## 2. Write null and alternative hypotheses:
 
----
+----
 
 > **_Question:_** Write down the null hypothesis and alternative hypotheses:    
 > H~0~:  < Type your answer here >    
 > H~1~:  < Type your answer here >    
 
----
+----
 
 ::: {.content-visible when-profile="solution"}
 ### Solution {style="color:green;"}
 
----
+----
 
 > **_Question:_** Write down the null hypothesis and alternative hypotheses:    
 > H~0~:  $\mu_{yield}$ = 11 units   
 > H~1~:  $\mu_{yield}$ $\neq$ 11 units     
 
----
+----
 
 :::
 
@@ -150,10 +157,11 @@ qqplots:
 ### Solution {style="color:green;"}
 
 ```{r}
+library(ggplot2)
 
-qqnorm(milk$Yield)
-qqline(milk$Yield)
-
+ggplot(milk, aes(sample = Yield)) + 
+  stat_qq() + 
+  stat_qq_line()
 ```
 
 :::
@@ -171,25 +179,28 @@ Histogram and boxplots:
 ### Solution {style="color:green;"}
 
 ```{r}
+ggplot(milk, aes(x = Yield)) + 
+  geom_histogram(binwidth = 1, fill = "lightblue", color = "black") +
+  labs(title = "Histogram of Milk Yield", x = "Yield", y = "Frequency")
 
-hist(milk$Yield)
-boxplot(milk$Yield)
+ggplot(milk, aes(y = Yield)) +
+  geom_boxplot(fill = "lightblue", color = "black") 
 
 ```
 
 :::
 
----
+----
 
 >**_Question:_** Do the plots indicate the data are normally distributed?  
 >**_Answer:_**  < Type your answer here >
 
----
+----
 
 ::: {.content-visible when-profile="solution"}
 ### Solution {style="color:green;"}
 
----
+----
 
 >**_Question:_** Do the plots indicate the data are normally distributed?  
 >**_Answer:_**  yes - think about why?
@@ -217,22 +228,22 @@ shapiro.test(milk$Yield)
 
 :::
 
----
+----
 
 >**_Question:_** Does the Shapiro-Wilk test indicate the data are normally distributed? Explain your answer.  
 >**_Answer:_**  < Type your answer here >
 
----
+----
 
 ::: {.content-visible when-profile="solution"}
 ### Solution {style="color:green;"}
 
----
+----
 
 >**_Question:_** Does the Shapiro-Wilk test indicate the data are normally distributed? Explain your answer.  
 >**_Answer:_**  yes. p-value > 0.05.
 
----
+----
 
 :::
 
@@ -261,64 +272,64 @@ t.test(milk$Yield, mu = 11)
 
 ### 5. Obtain P-value or critical value
 
----
+----
 
 >**_Question:_** Does the hypothesised economic threshold lie within the confidence intervals?  
 >**_Answer:_**  < Type your answer here >
 
----
+----
 
 ::: {.content-visible when-profile="solution"}
 ### Solution {style="color:green;"}
 
----
+----
 
 >**_Question:_** Does the hypothesised economic threshold lie within the confidence intervals?  
 >**_Answer:_**  No
 
----
+----
 
 :::
 
 ### 6. Make statistical conclusion
 
----
+----
 
 >**_Question:_**: Based on the P-value, do we accept or reject the null hypothesis?  
 >**_Answer:_**  < Type your answer here >
 
----
+----
 
 ::: {.content-visible when-profile="solution"}
 ### Solution {style="color:green;"}
 
----
+----
 
 >**_Question:_**: Based on the P-value, do we accept or reject the null hypothesis?  
 >**_Answer:_**  Reject the null hypothesis
 
----
+----
 
 :::
 
 ### 7. Write a scientific (biological) conclusion
 
----
+----
 
 >**_Question:_**: Now write a scientific (biological) conclusion based on the outcome in 6.  
 >**_Answer:_**  < Type your answer here >
 
----
+----
 
 ::: {.content-visible when-profile="solution"}
 ### Solution {style="color:green;"}
 
----
+----
 
 >**_Question:_**: Now write a scientific (biological) conclusion based on the outcome in 6.  
 >**_Answer:_**  The milk yields differ significantly from the economic threshold of 11 units. In fact, the cows tested yield an average of 13.6 units (95% CI: 12.5, 14.6), which is significantly higher than the economic threshold of 11 units.
 
----
+----
 
 :::
 
@@ -330,6 +341,11 @@ A forest ecologist, studying regeneration of rainforest communities in gaps caus
 
 Does her data support the published contention that seedlings of this species will average 1.5m of growth per year in direct sunlight? Also, calculate a 95% CI for the true mean. Analyse the data in R. Due to the small sample size we have to assume the data is normal.
 
+:::{.callout-tip}
+## Fact
+It was found that researchers wearing welding gloves and a full body suit were still stung by the tree. The sting is extremely painful and can last for months. The pain is caused by a neurotoxin that is injected into the skin. The tree is found in the rainforests of north-eastern Australia.
+:::
+
 Work through the steps below individually or in pairs. Add more code chunks if required (click insert -> R on above toolbar)  
 
 
@@ -337,13 +353,13 @@ Work through the steps below individually or in pairs. Add more code chunks if r
 >1. Choose level of significance (α)  
 > Answer:  
 
----
+----
 
 >2. Write null and alternate hypotheses  
 > H~0~:      
 > H~1~:   
 
----
+----
 
 >3. Check assumptions (normal)  
 
@@ -367,14 +383,21 @@ Plot your data:
 ### Solution {style="color:green;"}
 
 ```{r}
+ggplot(sting, aes(sample = Stinging)) + 
+  stat_qq() + 
+  stat_qq_line()
+```
 
-# write your R code here
-hist(sting$Stinging)
-boxplot(sting$Stinging)
+```{r}
+ggplot(sting, aes(x = Stinging)) + 
+  geom_histogram(binwidth = 1, fill = "lightgreen", color = "black") +
+  labs(title = "Histogram of Stinging Tree Growth", x = "Growth (m)", y = "Frequency")
+```
 
-
-qqnorm(sting$Stinging)
-qqline(sting$Stinging)
+```{r}
+ggplot(sting, aes(x = Stinging)) + 
+  geom_boxplot(fill = "lightgreen", color = "black") +
+  labs(title = "Boxplot of Stinging Tree Growth", x = "Growth (m)", y = "Frequency")
 ```
 
 :::
@@ -400,22 +423,22 @@ shapiro.test(sting$Stinging)
 
 :::
 
----
+----
 
 >**_Question:_** Are data are normally distributed? Explain your answer.  
 >**_Answer:_**  < Type your answer here > 
 
----
+----
 
 ::: {.content-visible when-profile="solution"}
 ### Solution {style="color:green;"}
 
----
+----
 
 >**_Question:_** Are data are normally distributed? Explain your answer.  
 >**_Answer:_**  Yes. Both the plots and Shapiro-Wilk test suggest the data is normal (p-value > 0.05).
 
----
+----
 
 :::
 
@@ -440,41 +463,41 @@ t.test(sting$Stinging, mu = 1.5)
 
 :::
 
----
+----
 
 > 6. Make statistical conclusion  
 > Answer:
 
----
+----
 
 ::: {.content-visible when-profile="solution"}
 ### Solution {style="color:green;"}
 
----
+----
 
 > 6. Make statistical conclusion  
 > Answer: P < 0.05 so we reject the null hypothesis $\mu_{growth}$ = 1.5m/year   
 
----
+----
 
 :::
 
----
+----
 
 > 7. Write a scientific (biological) conclusion    
 > Answer:
 
----
+----
 
 ::: {.content-visible when-profile="solution"}
 ### Solution {style="color:green;"}
 
----
+----
 
 > 7. Write a scientific (biological) conclusion    
 > Answer: The growth rate of the stinging tree, *Dendrocnide excelsa* is not equal to 1.5m/year. The mean growth rate is 1.9 m/year (95% CI: 1.51, 2.29), so the growth rate is faster than the previous study.
 
----
+----
 
 :::
 
